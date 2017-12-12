@@ -1,0 +1,8 @@
+.row {
+	margin-bottom: 10px;
+}
+.form-control{
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}

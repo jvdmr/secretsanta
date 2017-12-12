@@ -5,41 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SecretSanta</title>
 
-    <!-- update the version number as needed -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/my.css">
+	</head>
+
+	<body>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>SecretSanta</h2>
+					<h1>Fill in the participants</h1>
+				</div>
+			</div>
+			<form id="secretSantaForm" action="/secret-santa" method="post">
+				<div id="formRows">
+					<div class="row" id="person0">
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="Name" name="person[0][name]"/>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="E-mail" name="person[0][email]"/>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="Wishlist url" name="person[0][wishlist]"/>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-default deleterow" data-id="0" role="button" href="#"><b>-</b></a>
+						</div>
+					</div>
+					<div class="row" id="person1">
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="Name" name="person[1][name]"/>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="E-mail" name="person[1][email]"/>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" placeholder="Wishlist url" name="person[1][wishlist]"/>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-default deleterow" data-id="1" role="button" href="#"><b>-</b></a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-11">
+						<a class="btn btn-default addrow" role="button" href="#"><b>+</b></a>
+					</div>
+					<div class="col-md-1">
+						<a class="btn btn-primary submit" role="button" href="#">Submit</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<p id="load">Firebase SDK Loading&hellip;</p>
+
     <script defer src="/__/firebase/4.8.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/4.8.0/firebase-auth.js"></script>
-		<script defer src="/__/firebase/4.8.0/firebase-database.js"></script>
-		<script defer src="/__/firebase/4.8.0/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/4.8.0/firebase-storage.js"></script>
-<!--     initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>SecretSanta</h2>
-      <h1>Fill in the participants</h1>
-      <p>Go on, fill them in!</p>
-      <a id="helloWorld" href="/helloWorld">Hello World!</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -53,14 +80,37 @@
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-				$("#helloWorld").click(function (e) {
-					$.get({
-						url: this.href,
-						success: function (result) {
-							alert(result);
-						}
-					});
+				$(".submit").click(function (e) {
+					$("#secretSantaForm").submit();
 					return false;
+				});
+
+				var personIndex = 2;
+
+				$(".addrow").click(function(e) {
+					var i = personIndex++;
+					$("#formRows").append("" +
+						"<div class='row' id='person" + i + "'>" +
+						"	<div class='col-md-3'>" +
+						"		<input type='text' class='form-control' placeholder='Name' name='person[" + i + "][name]'/>" +
+						"	</div>" +
+						"	<div class='col-md-3'>" +
+						"		<input type='text' class='form-control' placeholder='E-mail' name='person[" + i + "][email]'/>" +
+						"	</div>" +
+						"	<div class='col-md-3'>" +
+						"		<input type='text' class='form-control' placeholder='Wishlist url' name='person[" + i + "][wishlist]'/>" +
+						"	</div>" +
+						"	<div class='col-md-3'>" +
+						"		<a class='btn btn-default deleterow' data-id='" + i + "' role='button' href='#'><b>-</b></a>" +
+						"	</div>" +
+						"</div>" +
+						"");
+				});
+
+				$(".deleterow").click(function(e) {
+					var i = $(this).data("id");
+					var node = $("#person" + i);
+					node.remove();
 				});
 
 				$("#load").html("FireBase loaded!");

@@ -8,7 +8,7 @@
     ],
     "rewrites": [
       {
-        "source": "/helloWorld", "function": "helloWorld"
+        "source": "/secret-santa", "function": "secretSanta"
       }
     ]
   }
