@@ -8,7 +8,16 @@
     ],
     "rewrites": [
       {
-        "source": "/secret-santa", "function": "secretSanta"
+        "source": "/echo",
+        "function": "echo"
+      },
+      {
+        "source": "/secret-santa",
+        "function": "secretSanta"
+      },
+      {
+        "source": "/mail",
+        "function": "mail"
       }
     ]
   }
