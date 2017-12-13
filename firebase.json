@@ -14,10 +14,6 @@
       {
         "source": "/secret-santa",
         "function": "secretSanta"
-      },
-      {
-        "source": "/mail",
-        "function": "mail"
       }
     ]
   }

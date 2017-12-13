@@ -61,8 +61,22 @@ document.addEventListener('DOMContentLoaded', function() {
       url: "/secret-santa",
       type: 'POST',
       data: $('#secretSantasForm').serialize(),
-      success: function(data){
-        alert("Done!");
+      success: function(santa){
+        $("#formRows").html(
+					"<div class='row' id='secretSantaResult' style='display: none;'>" +
+					"  <div class='col-md-12'>" +
+					((f, s) => f(f, s))((f, s) => s.name + (s.victim ? " => " + f(f, s.victim) : ""), santa) +
+					"  </div>" +
+					"</div>" +
+					"<div class='row'>" +
+					"  <div class='col-md-12'>" +
+					"    <p>All mails have been sent!</p>" +
+					"    <p>If you want to know who got who: <a class='btn btn-default showResults' role='button' href='#'><b>Show results</b></a></p>" +
+					"  </div>" +
+					"</div>"
+				);
+				$(".showResults").click(() => $("#secretSantaResult").show());
+        $(".submit").hide();
       }
     });
     return false;
