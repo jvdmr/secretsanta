@@ -5,105 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SecretSanta</title>
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/my.css">
-	</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/my.css">
+  </head>
 
-	<body>
+  <body>
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<h2>SecretSanta</h2>
-					<h1>Fill in the participants</h1>
-				</div>
-			</div>
-			<form id="secretSantaForm" action="/secret-santa" method="post">
-				<div id="formRows">
-					<div class="row" id="person0">
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="Name" name="person[0][name]"/>
-						</div>
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="E-mail" name="person[0][email]"/>
-						</div>
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="Wishlist url" name="person[0][wishlist]"/>
-						</div>
-						<div class="col-md-3">
-							<a class="btn btn-default deleterow" data-id="0" role="button" href="#"><b>-</b></a>
-						</div>
-					</div>
-					<div class="row" id="person1">
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="Name" name="person[1][name]"/>
-						</div>
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="E-mail" name="person[1][email]"/>
-						</div>
-						<div class="col-md-3">
-							<input type="text" class="form-control" placeholder="Wishlist url" name="person[1][wishlist]"/>
-						</div>
-						<div class="col-md-3">
-							<a class="btn btn-default deleterow" data-id="1" role="button" href="#"><b>-</b></a>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-11">
-						<a class="btn btn-default addrow" role="button" href="#"><b>+</b></a>
-					</div>
-					<div class="col-md-1">
-						<a class="btn btn-primary submit" role="button" href="#">Submit</a>
-					</div>
-				</div>
-			</form>
-		</div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>SecretSanta</h2>
+          <h1>Fill in the participants</h1>
+        </div>
+      </div>
+
+      <form id="secretSantasForm" action="/secret-santa" method="post">
+        <div id="formRows">
+          <div class="row" id="santas0">
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Name" name="santas[0][name]"/>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="E-mail" name="santas[0][email]"/>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Wishlist url" name="santas[0][wishlist]"/>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn-default deletesantarow" data-id="0" role="button" href="#"><b>-</b></a>
+            </div>
+          </div>
+          <div class="row" id="santas1">
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Name" name="santas[1][name]"/>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="E-mail" name="santas[1][email]"/>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Wishlist url" name="santas[1][wishlist]"/>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn-default deletesantarow" data-id="1" role="button" href="#"><b>-</b></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <a class="btn btn-default addrow" role="button" href="#"><b>+</b></a>
+          </div>
+          <div class="col-md-1">
+            <a class="btn btn-primary echo pull-right" role="button" href="#">Submit</a>
+            <a class="btn btn-primary submit pull-right" style="display: none;" role="button" href="#">Submit</a>
+          </div>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-md-3">
+          <input id="mailForm" type="text" class="form-control" placeholder="email" name="email"/>
+        </div>
+      </div>
+      <div class="col-md-8">&nbsp;</div>
+      <div class="col-md-1">
+        <a class="btn btn-primary mail pull-right" role="button" href="#">Mail</a>
+      </div>
+    </div>
+
+    </div>
 
     <script defer src="/__/firebase/4.8.0/firebase-app.js"></script>
     <script defer src="/__/firebase/init.js"></script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
+    <script src="/js/my.js"></script>
 
-				$(".submit").click(function (e) {
-					$("#secretSantaForm").submit();
-					return false;
-				});
-
-				var personIndex = 2;
-
-				$(".addrow").click(function(e) {
-					var i = personIndex++;
-					$("#formRows").append("" +
-						"<div class='row' id='person" + i + "'>" +
-						"	<div class='col-md-3'>" +
-						"		<input type='text' class='form-control' placeholder='Name' name='person[" + i + "][name]'/>" +
-						"	</div>" +
-						"	<div class='col-md-3'>" +
-						"		<input type='text' class='form-control' placeholder='E-mail' name='person[" + i + "][email]'/>" +
-						"	</div>" +
-						"	<div class='col-md-3'>" +
-						"		<input type='text' class='form-control' placeholder='Wishlist url' name='person[" + i + "][wishlist]'/>" +
-						"	</div>" +
-						"	<div class='col-md-3'>" +
-						"		<a class='btn btn-default deleterow' data-id='" + i + "' role='button' href='#'><b>-</b></a>" +
-						"	</div>" +
-						"</div>" +
-						"");
-				});
-
-				$(".deleterow").click(function(e) {
-					var i = $(this).data("id");
-					var node = $("#person" + i);
-					node.remove();
-				});
-
-      });
-    </script>
   </body>
 </html>
