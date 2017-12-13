@@ -69,7 +69,7 @@ function shuffle (array) {
 
 function sendSantaMails(santa) {
 	if (santa.victim) {
-		sendMail(santa.email, "TEST - About your secret santa event...",
+		sendMail(santa.email, "About your secret santa event...",
 			`<p>Hi ${santa.name}!</p>` +
 			`<p>The names have been drawn. You have been chosen as the Secret Santa for ${santa.victim.name}.</p>` +
 			(santa.victim.wishlist !== "" ?

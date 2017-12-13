@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
               }).join("\n") +
               "  </div>" +
               "</div>" +
-							"<hr/>" +
+              "<hr/>" +
               "";
           }).join("\n")
         );
@@ -64,42 +64,28 @@ document.addEventListener('DOMContentLoaded', function() {
       data: $('#secretSantasForm').serialize(),
       success: function(santa){
         $("#formRows").html(
-					"<div class='row' id='secretSantaResult' style='display: none;'>" +
-					"  <div class='col-md-12'>" +
-					((f, s) => f(f, s))((f, s) => s.name + (s.victim ? " => " + f(f, s.victim) : ""), santa) +
-					"  </div>" +
-					"</div>" +
-					"<div class='row'>" +
-					"  <div class='col-md-12'>" +
-					"    <p>All mails have been sent!</p>" +
-					"    <p>If you want to know who got who: <a class='btn btn-default showResults' role='button' href='#'><b>Show results</b></a></p>" +
-					"  </div>" +
-					"</div>"
-				);
-				$(".showResults").click(() => $("#secretSantaResult").show());
+          "<div class='row' id='secretSantaResult' style='display: none;'>" +
+          "  <div class='col-md-12'>" +
+          ((f, s) => f(f, s))((f, s) => s.name + (s.victim ? " => " + f(f, s.victim) : ""), santa) +
+          "  </div>" +
+          "</div>" +
+          "<div class='row'>" +
+          "  <div class='col-md-12'>" +
+          "    <p>All mails have been sent!</p>" +
+          "    <p>If you want to know who got who: <a class='btn btn-default showResults' role='button' href='#'><b>Show results</b></a></p>" +
+          "  </div>" +
+          "</div>"
+        );
+        $(".showResults").click(() => $("#secretSantaResult").show());
         $(".submit").hide();
       }
     });
     return false;
   });
 
-  $(".mail").click(function (e) {
-    console.log($('#mailForm').val());
-    $.ajax({
-      url: "/mail",
-      type: 'POST',
-      data: {
-        email: $('#mailForm').val()
-      },
-      success: function(data){
-        console.log("Done!");
-      }
-    });
-  });
+  var santasIndex = 0;
 
-  var santasIndex = 2;
-
-  $(".addrow").click(function(e) {
+  function addRow() {
     var i = santasIndex++;
     $("#formRows").append("" +
       "<div class='row' id='santas" + i + "'>" +
@@ -117,11 +103,18 @@ document.addEventListener('DOMContentLoaded', function() {
       " </div>" +
       "</div>" +
       "");
-  });
+    $(".deletesantarow").unbind('click').click(deleteRow);
+  }
 
-  $(".deletesantarow").click(function(e) {
+  function deleteRow() {
     var i = $(this).data("id");
     var node = $("#santas" + i);
     node.remove();
-  });
+  }
+
+  addRow();
+  addRow();
+
+  $(".addrow").click(addRow);
+
 });
