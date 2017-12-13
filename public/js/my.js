@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
               }).join("\n") +
               "  </div>" +
               "</div>" +
+							"<hr/>" +
               "";
           }).join("\n")
         );
