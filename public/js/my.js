@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // firebase.messaging().requestPermission().then(() => { });
   // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
 
-  $(".echo").click(function (e) {
+  $(".nextstep").click(function (e) {
     $.ajax({
-      url: "/echo",
+      url: "/nextstep",
       type: 'POST',
       data: $('#secretSantasForm').serialize(),
       success: function(data){
@@ -50,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
           var node = $("#santas" + santa + "victims" + i);
           node.remove();
         });
-        $(".echo").hide();
+        $("#stepTitle").html("Should anyone not get someone specific as their victim?");
+				$(".addrow").hide();
+        $(".nextstep").hide();
         $(".submit").show();
       }
     });

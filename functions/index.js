@@ -5,7 +5,7 @@ const isUrl = require("is-url");
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
-exports.echo = functions.https.onRequest(post((req, res) => {
+exports.nextstep = functions.https.onRequest(post((req, res) => {
 	res.send(req.body);
 }));
 

@@ -8,8 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/echo",
-        "function": "echo"
+        "source": "/nextstep",
+        "function": "nextstep"
       },
       {
         "source": "/secret-santa",
