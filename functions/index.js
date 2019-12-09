@@ -12,6 +12,11 @@ exports.nextstep = functions.https.onRequest(post((req, res) => {
 exports.secretSanta = functions.https.onRequest(post((req, res) => {
 	const originalSantas = req.body.santas;
 	const santacycle = calculateSecretSanta(originalSantas);
+	res.send(santacycle);
+}));
+
+exports.send = functions.https.onRequest(post((req, res) => {
+	const santacycle = req.body.santas;
 	sendSantaMails(santacycle);
 	res.send(santacycle);
 }));
@@ -22,15 +27,21 @@ function calculateSecretSanta(originalSantas) {
 		santa.victims = santa.victims.filter(victim => victim != null)
 	);
 	const firstVictim = santas[0];
-	delete firstVictim.victims;
 	return buildSantaCycle(removeEl(santas, santas[0]), firstVictim, JSON.parse(JSON.stringify(firstVictim)));
 };
 
 function buildSantaCycle(santas, currentVictim, firstVictim) {
-//  console.log(currentVictim.name + " => " + (currentVictim.victim ? currentVictim.victim.name : "nobody yet") + " :: " + santas.map(s => s.name));
+	//  console.log(currentVictim.name + " => " + (currentVictim.victim ? currentVictim.victim.name : "nobody yet") + " :: " + santas.map(s => s.name));
 	if (santas.length == 0) {
-		firstVictim.victim = currentVictim;
-		return firstVictim;
+		if (firstVictim.victims.filter(victim =>
+			victim.email === currentVictim.email
+		).length > 0) {
+			firstVictim.victim = currentVictim;
+			delete firstVictim.victims;
+			return firstVictim;
+		} else {
+			return -1;
+		}
 	}
 	const possibleSantas = santas.filter(santa =>
 		santa.victims.filter(victim =>

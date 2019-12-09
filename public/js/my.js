@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // firebase.auth().onAuthStateChanged(user => { });
-  // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-  // firebase.messaging().requestPermission().then(() => { });
-  // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+  var santas = {};
 
   $(".nextstep").click(function (e) {
     $.ajax({
@@ -10,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
       type: 'POST',
       data: $('#secretSantasForm').serialize(),
       success: function(data){
-        $("#formRows").html(
+        $('#secretSantasFormDiv').hide();
+        $('#tweakingDiv').show();
+        $("#tweaking").html(
           data.santas.map(function (santa, i) {
             return "" +
               "<div class='row' id='santas" + i + "'>" +
@@ -49,24 +48,49 @@ document.addEventListener('DOMContentLoaded', function() {
           var i = $(this).data("id");
           var node = $("#santas" + santa + "victims" + i);
           node.remove();
+          return false;
         });
-        $("#stepTitle").html("Should anyone not get someone specific as their victim?");
-				$(".addrow").hide();
-        $(".nextstep").hide();
-        $(".submit").show();
       }
     });
     return false;
   });
 
-  $(".submit").click(function (e) {
+  $(".calculate").click(function (e) {
     $.ajax({
       url: "/secret-santa",
       type: 'POST',
-      data: $('#secretSantasForm').serialize(),
+      data: $('#tweakedSantasForm').serialize(),
       success: function(santa){
-        $("#formRows").html(
-          "<div class='row' id='secretSantaResult' style='display: none;'>" +
+        santas = santa;
+        $('#tweakingDiv').hide();
+        $('#sendDiv').show();
+        $("#send").html(
+          "<div class='row secretSantaResult' style='display: none;'>" +
+          "  <div class='col-md-12'>" +
+          ((f, s) => f(f, s))((f, s) => s.name + (s.victim ? " => " + f(f, s.victim) : ""), santa) +
+          "  </div>" +
+          "</div>" +
+          "<div class='row'>" +
+          "  <div class='col-md-12'>" +
+          "    <p>All mails are ready to be sent!</p>" +
+          "    <p>If you want to know who got who: <a class='btn btn-default showResults' role='button' href='#'><b>Show results</b></a></p>" +
+          "  </div>" +
+          "</div>"
+        );
+        $(".showResults").click(() => $(".secretSantaResult").show());
+      }
+    });
+    return false;
+  });
+
+  $(".send").click(function (e) {
+    $.ajax({
+      url: "/send",
+      type: 'POST',
+      data: { santas: santas },
+      success: function(santa){
+        $("#send").html(
+          "<div class='row secretSantaResult' style='display: none;'>" +
           "  <div class='col-md-12'>" +
           ((f, s) => f(f, s))((f, s) => s.name + (s.victim ? " => " + f(f, s.victim) : ""), santa) +
           "  </div>" +
@@ -78,10 +102,21 @@ document.addEventListener('DOMContentLoaded', function() {
           "  </div>" +
           "</div>"
         );
-        $(".showResults").click(() => $("#secretSantaResult").show());
-        $(".submit").hide();
+        $(".showResults").click(() => $(".secretSantaResult").show());
       }
     });
+    return false;
+  });
+
+  $(".back-form").click(function (e) {
+    $('#secretSantasFormDiv').show();
+    $('#tweakingDiv').hide();
+    return false;
+  });
+
+  $(".back-tweaking").click(function (e) {
+    $('#tweakingDiv').show();
+    $('#sendDiv').hide();
     return false;
   });
 
@@ -106,12 +141,14 @@ document.addEventListener('DOMContentLoaded', function() {
       "</div>" +
       "");
     $(".deletesantarow").unbind('click').click(deleteRow);
+    return false;
   }
 
   function deleteRow() {
     var i = $(this).data("id");
     var node = $("#santas" + i);
     node.remove();
+    return false;
   }
 
   addRow();

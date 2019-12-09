@@ -17,23 +17,46 @@
       <div class="row">
         <div class="col-md-12">
           <h2>SecretSanta</h2>
-          <h1 id="stepTitle">Fill in the participants</h1>
         </div>
       </div>
 
-      <form id="secretSantasForm" action="/secret-santa" method="post">
-        <div id="formRows">
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            <a class="btn btn-default addrow" role="button" href="#"><b>+</b></a>
-          </div>
-          <div class="col-md-1">
-            <a class="btn btn-primary nextstep pull-right" role="button" href="#">Next step</a>
-            <a class="btn btn-primary submit pull-right" style="display: none;" role="button" href="#">Submit</a>
-          </div>
-        </div>
-      </form>
+			<div id="secretSantasFormDiv">
+				<h1>Fill in the participants</h1>
+				<form id="secretSantasForm" action="/secret-santa" method="post">
+					<div id="formRows">
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<a class="btn btn-default addrow" role="button" href="#"><b>+</b></a>
+						</div>
+						<div class="col-md-4">
+							<a class="btn btn-primary nextstep pull-right" role="button" href="#">Next step</a>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div id="tweakingDiv" style="display: none;">
+				<h1>Should anyone not get someone specific as their victim?</h1>
+				<form id="tweakedSantasForm" action="/secret-santa" method="post">
+					<div id="tweaking">
+					</div>
+					<div class="col-md-12">
+						<a class="btn back-form" role="button" href="#">Back</a>
+						<a class="btn btn-primary calculate pull-right" role="button" href="#">Calculate</a>
+					</div>
+				</form>
+			</div>
+
+			<div id="sendDiv" style="display: none;">
+				<h1>Ready to send?</h1>
+				<div id="send">
+				</div>
+				<div class="col-md-12">
+					<a class="btn back-tweaking" role="button" href="#">Back</a>
+					<a class="btn btn-primary send pull-right" role="button" href="#">Send</a>
+				</div>
+			</div>
 
     </div>
 

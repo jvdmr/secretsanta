@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/send",
+        "function": "send"
+      },
+      {
         "source": "/nextstep",
         "function": "nextstep"
       },
